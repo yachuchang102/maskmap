@@ -12,6 +12,7 @@
   <side-bar
   :allData.sync="data"
   :userPosition="userPosition"
+  @getNewCenter="updatePosition"
   />
   </div>
    <div class="col-sm-8">
@@ -56,6 +57,11 @@ export default {
       vm.$http.get(url).then((response) => {
         vm.data = response.data.features;
       });
+    },
+    updatePosition(newPosition) {
+      const vm = this;
+      const { map } = vm.$refs.mapInfo;
+      map.setView(newPosition, 18);
     },
   },
   mounted() {
